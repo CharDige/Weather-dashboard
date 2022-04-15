@@ -19,15 +19,32 @@
     </header>
 
     <main>
-        <div class="container" id="city-search-container">
-            <div class="mb-3" id="city-search-input">
-                <label for="search-input" class="form-label">Search for a city:</label>
-                <textarea type="text" class="form-control" id="search-input" placeholder="Type in a city here" rows="2"></textarea>
-                <button type="button" class="btn btn-success m-2">Search</button>
+        <div id="search-container" class="col-12 col-md-3">
+
+            <div class="card">
+                <form id="city-search" class="card-body">
+                    <label for="city-search-input" class="card-header">Search for a city:</label>
+                    <input name="city-search-input" id="city-search-input" type="text" class="form-input">
+                    <button type="button" class="btn btn-success m-2" id="search-button">Search</button>
+                </form>
+                <div id="error-message"></div>
+            </div>
+            
+            <div id="searched-cities"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-10">
+                <div class="card" id="today-weather-card"></div>
             </div>
         </div>
 
-        <div class="container" id="results-container"></div>
+        <div class="row">
+            <div class="col-12 col-md-2" id="five-day-forecast">
+                <p class="hide">Five day forecast:</p>
+            </div>
+        </div>
+        
     </main>
 
 
