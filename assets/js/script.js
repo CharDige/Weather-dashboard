@@ -14,7 +14,7 @@ var searchButtonHandler = function(event) {
     event.preventDefault();
     var searchedCity = citySearchInputEl.value.trim();
     console.log(searchedCity);
-    console.log(getCurrentCityWeather(searchedCity));
+    getCurrentCityWeather(searchedCity);
 }
 
 // Get current weather for searched city
@@ -25,15 +25,16 @@ var getCurrentCityWeather = function(searchedCity) {
         response.json()
         .then(function(data) {
             console.log(data,searchedCity)
-            displayCurrentCityWeather(data, searchedCity);
+            displayCityWeatherForecast(data, searchedCity);
         })
     })
 };
 
 // Display searched city's current weather
-var displayCurrentCityWeather = function(weather, searchedCity) {
+var displayCityWeatherForecast = function(currentWeather, searchedCity) {
     // Clear content ahead of new content
-    todayWeather.textContent = " ";
+    todayWeather.textContent = "";
+    // Adding heading for searched city
     var todayWeatherHeading = document.createElement("h2");
     todayWeatherHeading.textContent = searchedCity;
     todayWeather.appendChild(todayWeatherHeading);
@@ -45,33 +46,36 @@ var displayCurrentCityWeather = function(weather, searchedCity) {
 
     // Current weather icon
     var currentWeatherIcon = document.createElement("img");
-    currentWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weather.weather[0].icon + "@2x.png");
+    currentWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + currentWeather.weather[0].icon + "@2x.png");
     todayWeather.appendChild(currentWeatherIcon);
 
     // Current temperature
     var currentTemp = document.createElement("p");
-    currentTemp.textContent = "Temperature: " + weather.main.temp + "°C"
+    currentTemp.textContent = "Temperature: " + currentWeather.main.temp + "°C"
     todayWeather.appendChild(currentTemp);
 
     // Current humidity
     var currentHumidity = document.createElement("p");
-    currentHumidity.textContent = "Humidity: " + weather.main.humidity + "%";
+    currentHumidity.textContent = "Humidity: " + currentWeather.main.humidity + "%";
     todayWeather.appendChild(currentHumidity);
 
     // Current wind speed
     var currentWindSpeed = document.createElement("p");
-    currentWindSpeed.textContent = "Wind speed: " + weather.wind.speed + " metres/second";
+    currentWindSpeed.textContent = "Wind speed: " + currentWeather.wind.speed + " metres/second";
     todayWeather.appendChild(currentWindSpeed);
 
     // Current UV index as a separate function due to different API call
-    var lat = weather.coord.lat
-    var lon = weather.coord.lon
+    var lat = currentWeather.coord.lat
+    var lon = currentWeather.coord.lon
     currentUvIndex(lat,lon);
+
+    // Five Day forecast as a separate function due to difference API call
+    getFiveDayForecast(lat,lon);
 }
 
 // Current UV Index fetch API function
 var currentUvIndex = function(lat,lon) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&appid=" + ApiKey
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&units=metric&appid=" + ApiKey
     fetch(apiUrl)
     .then (function(response) {
         response.json()
@@ -89,18 +93,109 @@ var showCurrentUvIndex = function(uvIndex) {
     
     // Conditional statement to change colour to indicate level of UV severity
     if (uvIndex.current.uvi <= 2) {
-        currentUvIndexEl.classList.add("bg-info")
+        currentUvIndexEl.classList.add("bg-success")
     } else if (uvIndex.current.uvi > 2 && uvIndex.current.uvi <= 5) {
-        currentUvIndexEl.classList.add("bg-success");
-    } else if (uvIndex.current.uvi > 5 && uvIndex.current.uvi <= 7) {
         currentUvIndexEl.classList.add("bg-warning");
-    } else if (uvIndex.current.uvi > 7 && uvIndex.current.uvi <= 10) {
+    } else if (uvIndex.current.uvi > 5) {
         currentUvIndexEl.classList.add("bg-danger");
-    } else if (uvIndex.current.uvi > 10) {
-        currentUvIndexEl.classList.add("bg-dark");
     };
 
     todayWeather.appendChild(currentUvIndexEl);
+}
+
+// Get five day forecast using separate fetch request
+var getFiveDayForecast = function(lat,lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=metric&appid=" + ApiKey
+
+    fetch(apiUrl)
+    .then (function(response) {
+        response.json()
+        .then (function(data) {
+            console.log(data);
+            displayFiveDayForecast(data);
+        })
+    })
+}
+
+// Display the five day forecast of the searched city
+var displayFiveDayForecast = function(fiveDayWeather) {
+    // Clear contents ahead of new content
+    fiveDayForecast.textContent = "";
+
+    // Adding heading for five day forecast
+    var fiveDayForecastHeading = document.createElement("h3");
+    fiveDayForecastHeading.textContent = "Five day forecast:";
+    fiveDayForecast.appendChild(fiveDayForecastHeading);
+
+    dailyForecast = fiveDayWeather.daily;
+
+    // Day 1 card of five day weather forecast
+    var dayOneForecast = document.createElement("div")
+    dayOneForecast.classList.add("card");
+    dayOneForecast.classList.add("bg-success");
+    dayOneForecast.classList.add("m-2");
+    fiveDayForecast.appendChild(dayOneForecast);
+
+    // Date for day 1 of five day weather forecast
+    var dayOneDate = document.createElement("p");
+    dayOneDate.textContent = moment.unix(fiveDayWeather.daily[1].dt).format("D MMM Y");
+    dayOneForecast.appendChild(dayOneDate);
+
+    // Icon to show weather for day 1 of five day weather forecast
+    var dayOneWeatherIcon = document.createElement("img");
+    dayOneWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + fiveDayWeather.daily[1].weather[0].icon + "@2x.png")
+    dayOneForecast.appendChild(dayOneWeatherIcon);
+
+    // Temperature for day 1 of five day weather forecast
+    var dayOneTemp = document.createElement("p");
+    dayOneTemp.textContent = "Temperature: " + fiveDayWeather.daily[1].temp.day + "°C"
+    dayOneForecast.appendChild(dayOneTemp);
+
+    // Humidity for day 1 of five day weather forecast
+    var dayOneHumidity = document.createElement("p");
+    dayOneHumidity.textContent = "Humidity: " + fiveDayWeather.daily[1].humidity + "%"
+    dayOneForecast.appendChild(dayOneHumidity);
+
+    // Wind speed for day 1 of five day weather forecast
+    var dayOneWindSpeed = document.createElement("p");
+    dayOneWindSpeed.textContent = "Wind speed: " + fiveDayWeather.daily[1].wind_speed + " metres/second"
+    dayOneForecast.appendChild(dayOneWindSpeed);
+
+    // Day 2 card of five day weather forecast
+    var dayTwoForecast = document.createElement("div");
+    dayTwoForecast.classList.add("card");
+    dayTwoForecast.classList.add("bg-success");
+    dayTwoForecast.classList.add("m-2");
+    fiveDayForecast.appendChild(dayTwoForecast);
+
+    // Date for day 2 of five day weather forecast
+    var dayTwoDate = document.createElement("p");
+    dayTwoDate.textContent = moment.unix(fiveDayWeather.daily[2].dt).format("D MMM Y");
+    dayTwoForecast.appendChild(dayTwoDate);
+
+    // Icon to show weather for day 1 of five day weather forecast
+    var dayTwoWeatherIcon = document.createElement("img");
+    dayTwoWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + fiveDayWeather.daily[2].weather[0].icon + "@2x.png")
+    dayTwoForecast.appendChild(dayTwoWeatherIcon);
+
+    // Temperature for day 1 of five day weather forecast
+    var dayTwoTemp = document.createElement("p");
+    dayTwoTemp.textContent = "Temperature: " + fiveDayWeather.daily[2].temp.day + "°C"
+    dayTwoForecast.appendChild(dayTwoTemp);
+
+    // Humidity for day 1 of five day weather forecast
+    var dayTwoHumidity = document.createElement("p");
+    dayTwoHumidity.textContent = "Humidity: " + fiveDayWeather.daily[2].humidity + "%"
+    dayTwoForecast.appendChild(dayTwoHumidity);
+
+    // Wind speed for day 1 of five day weather forecast
+    var dayTwoWindSpeed = document.createElement("p");
+    dayTwoWindSpeed.textContent = "Wind speed: " + fiveDayWeather.daily[2].wind_speed + " metres/second"
+    dayTwoForecast.appendChild(dayTwoWindSpeed);
+
+    console.log(fiveDayWeather.daily[0]);
+    console.log(fiveDayWeather.daily[1]);
+    console.log(fiveDayWeather.daily[2]);
 }
 
 searchButton.addEventListener("click", searchButtonHandler);
