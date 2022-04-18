@@ -2,3 +2,9 @@
 .hide {
     display: none;
 }
+
+/* Img styling */
+
+img {
+    width: 100px;
+}
