@@ -4,7 +4,31 @@
 }
 
 /* Img styling */
-
 img {
     width: 100px;
+}
+
+/* Search container styling */
+#search-container {
+    width: 100%;
+}
+
+/* Searched cities styling */
+#searched-cities {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+}
+
+/* Past search button styling */
+.past-search-button {
+    margin: 10px;
+}
+
+/* Five days forecast styling */
+#five-day-forecast {
+    justify-content: center;
 }
