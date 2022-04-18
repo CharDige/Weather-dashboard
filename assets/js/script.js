@@ -9,6 +9,11 @@ var fiveDayForecast = document.querySelector("#five-day-forecast");
 // OpenWeather API Key variable
 var ApiKey = "2eafffb05ee0e15aaa7a1382d485fad9";
 
+// Init function called when page loads
+function init() {
+    getSearchedCities();
+}
+
 // Search button function
 var searchButtonHandler = function(event) {
     event.preventDefault();
@@ -345,3 +350,5 @@ var displayFiveDayForecast = function(fiveDayWeather) {
 }
 
 searchButton.addEventListener("click", searchButtonHandler);
+
+init();
