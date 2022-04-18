@@ -20,7 +20,7 @@ var searchButtonHandler = function(event) {
     var searchedCity = citySearchInputEl.value.trim();
     console.log(searchedCity);
     getCurrentCityWeather(searchedCity);
-    setSearchedCities();
+    setSearchedCities(searchedCity);
 }
 
 // Read from local storage
@@ -35,10 +35,10 @@ function readLocalStorage() {
 // Save search into local storage
 var saveLocalStorage = function(searchedCity) {
     localStorage.setItem("searchedCities", JSON.stringify(searchedCity));
+    getSearchedCities();
 }
 
-function setSearchedCities() {
-    var searchedCity = citySearchInputEl.value.trim();
+function setSearchedCities(searchedCity) {
     var existingSearchedCities = readLocalStorage();
     // Store each city separately
     existingSearchedCities.push(searchedCity);
@@ -46,10 +46,10 @@ function setSearchedCities() {
 };
 
 function getSearchedCities() {
+    searchedCitiesEl.innerHTML = "";
     var previousSearchedCities = document.createElement("div");
     searchedCitiesEl.appendChild(previousSearchedCities);
-    var otherSearchedCities = readLocalStorage();
-    var searchedCities = [...new Set(otherSearchedCities)];
+    var searchedCities = readLocalStorage();
 
     // If there is nothing stored in local storage, console log
     if (searchedCities.length === 0) {
