@@ -61,7 +61,7 @@ function getSearchedCities() {
             var searchedCitiesList = document.createElement("button");
             searchedCitiesList.classList.add("bg-success");
             searchedCitiesList.textContent = searchedCities[i];
-            previousSearchedCities.appendChild(searchedCitiesList);
+            previousSearchedCities.append(searchedCitiesList);
         }
     }
 }
