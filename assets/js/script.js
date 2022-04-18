@@ -15,6 +15,12 @@ var searchButtonHandler = function(event) {
     var searchedCity = citySearchInputEl.value.trim();
     console.log(searchedCity);
     getCurrentCityWeather(searchedCity);
+    saveSearchedCities(searchedCity);
+}
+
+// Save search into local storage
+var saveSearchedCities = function(searchedCity) {
+    localStorage.setItem("searchedCities", searchedCity);
 }
 
 // Get current weather for searched city
