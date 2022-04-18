@@ -35,7 +35,7 @@ function readLocalStorage() {
 // Save search into local storage
 var saveLocalStorage = function(searchedCity) {
     localStorage.setItem("searchedCities", JSON.stringify(searchedCity));
-    getSearchedCities();
+    getSearchedCities(searchedCity);
 }
 
 function setSearchedCities(searchedCity) {
@@ -60,10 +60,22 @@ function getSearchedCities() {
         for (var i = 0; i < searchedCities.length; i++) {
             var searchedCitiesList = document.createElement("button");
             searchedCitiesList.classList.add("bg-success");
+            searchedCitiesList.classList.add("past-search-button");
+            searchedCitiesList.setAttribute("data-key", searchedCities[i]);
             searchedCitiesList.textContent = searchedCities[i];
             previousSearchedCities.append(searchedCitiesList);
         }
     }
+}
+
+var pastSearchButtons = document.querySelectorAll(".past-search-button");
+
+function selectPreviousCity() {
+    console.log("This works!");
+}
+
+for (var i = 0; i < pastSearchButtons.length; i++) {
+    pastSearchButtons[i].addEventListener("click", selectPreviousCity)
 }
 
 // Get current weather for searched city
