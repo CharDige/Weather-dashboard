@@ -21,22 +21,23 @@
     <main>
         <div id="search-container" class="row">
 
-            <div class="card col-12 col-md-3">
+            <div class="col-12 col-md-3" id="search-input-card">
                 <form id="city-search" class="card-body">
-                    <label for="city-search-input" class="card-header">Search for a city:</label>
+                    <label for="city-search-input">Search for a city:</label>
                     <input name="city-search-input" id="city-search-input" type="text" autofocus="true" class="form-input">
                     <button type="button" class="btn btn-success m-2" id="search-button">Search</button>
                 </form>
                 <div id="error-message"></div>
+                <div id="searched-cities"></div>
             </div>
 
-            <div class="col-12 col-md-9">
+            <div class="card-body col-12 col-md-9">
                 <div>
-                    <div class="card" id="today-weather-card"></div>
+                    <div id="today-weather-card"></div>
                 </div>
             </div>
 
-            <div class="col-12 col-md-3" id="searched-cities"></div>
+
         </div>
 
         <div class="container">
