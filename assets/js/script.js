@@ -59,23 +59,27 @@ function getSearchedCities() {
     } else {
         for (var i = 0; i < searchedCities.length; i++) {
             var searchedCitiesList = document.createElement("button");
-            searchedCitiesList.classList.add("bg-success");
+            searchedCitiesList.classList.add("btn");
+            searchedCitiesList.classList.add("btn-success");
             searchedCitiesList.classList.add("past-search-button");
+            searchedCitiesList.dataset.key = searchedCities[i];
             searchedCitiesList.setAttribute("data-key", searchedCities[i]);
             searchedCitiesList.textContent = searchedCities[i];
             previousSearchedCities.append(searchedCitiesList);
         }
     }
-}
+    var pastSearchButtons = document.querySelectorAll(".past-search-button");
 
-var pastSearchButtons = document.querySelectorAll(".past-search-button");
-
-function selectPreviousCity() {
-    console.log("This works!");
-}
-
-for (var i = 0; i < pastSearchButtons.length; i++) {
-    pastSearchButtons[i].addEventListener("click", selectPreviousCity)
+    function selectPreviousCity(event) {
+        var previousCity = event.target.getAttribute("data-key");
+        if (previousCity) {
+            getCurrentCityWeather(previousCity);
+        }
+    }
+    
+    for (var i = 0; i < pastSearchButtons.length; i++) {
+        pastSearchButtons[i].addEventListener("click", selectPreviousCity)
+    }
 }
 
 // Get current weather for searched city
