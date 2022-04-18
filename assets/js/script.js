@@ -6,7 +6,7 @@ var searchedCitiesEl = document.querySelector("#searched-cities");
 var todayWeather = document.querySelector("#today-weather-card");
 var fiveDayForecast = document.querySelector("#five-day-forecast");
 
-
+// OpenWeather API Key variable
 var ApiKey = "2eafffb05ee0e15aaa7a1382d485fad9";
 
 // Search button function
@@ -19,11 +19,12 @@ var searchButtonHandler = function(event) {
 
 // Get current weather for searched city
 var getCurrentCityWeather = function(searchedCity) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&units=imperial&appid=" + ApiKey
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&units=metric&appid=" + ApiKey
     fetch(apiUrl)
     .then (function(response) {
         response.json()
         .then(function(data) {
+            console.log(data,searchedCity)
             displayCurrentCityWeather(data, searchedCity);
         })
     })
@@ -41,6 +42,16 @@ var displayCurrentCityWeather = function(weather, searchedCity) {
     var currentDate = document.createElement("p");
     currentDate.textContent = moment().format("D MMM YYYY");
     todayWeather.appendChild(currentDate);
+
+    // Current weather icon
+    var currentWeatherIcon = document.createElement("img");
+    currentWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weather.weather[0].icon + "@2x.png");
+    todayWeather.appendChild(currentWeatherIcon);
+
+    // Current temperature
+    var currentTemp = document.createElement("p");
+    currentTemp.textContent = "Temperature: " + weather.main.temp + "°C"
+    todayWeather.appendChild(currentTemp);
 }
 
 searchButton.addEventListener("click", searchButtonHandler);
