@@ -43,13 +43,13 @@ function setSearchedCities() {
     // Store each city separately
     existingSearchedCities.push(searchedCity);
     saveLocalStorage(existingSearchedCities);
-    getSearchedCities();
 };
 
 function getSearchedCities() {
     var previousSearchedCities = document.createElement("div");
     searchedCitiesEl.appendChild(previousSearchedCities);
-    var searchedCities = readLocalStorage();
+    var otherSearchedCities = readLocalStorage();
+    var searchedCities = [...new Set(otherSearchedCities)];
 
     // If there is nothing stored in local storage, console log
     if (searchedCities.length === 0) {
