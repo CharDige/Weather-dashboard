@@ -62,6 +62,45 @@ var displayCurrentCityWeather = function(weather, searchedCity) {
     var currentWindSpeed = document.createElement("p");
     currentWindSpeed.textContent = "Wind speed: " + weather.wind.speed + " metres/second";
     todayWeather.appendChild(currentWindSpeed);
+
+    // Current UV index as a separate function due to different API call
+    var lat = weather.coord.lat
+    var lon = weather.coord.lon
+    currentUvIndex(lat,lon);
+}
+
+// Current UV Index fetch API function
+var currentUvIndex = function(lat,lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&appid=" + ApiKey
+    fetch(apiUrl)
+    .then (function(response) {
+        response.json()
+        .then (function(data) {
+            console.log(data);
+            showCurrentUvIndex(data);
+        });
+    });
+}
+
+// Showing the current UV index and colour coding based on severity of UV index
+var showCurrentUvIndex = function(uvIndex) {
+    var currentUvIndexEl = document.createElement("p");
+    currentUvIndexEl.textContent = "UV Index: " + uvIndex.current.uvi
+    
+    // Conditional statement to change colour to indicate level of UV severity
+    if (uvIndex.current.uvi <= 2) {
+        currentUvIndexEl.classList.add("bg-info")
+    } else if (uvIndex.current.uvi > 2 && uvIndex.current.uvi <= 5) {
+        currentUvIndexEl.classList.add("bg-success");
+    } else if (uvIndex.current.uvi > 5 && uvIndex.current.uvi <= 7) {
+        currentUvIndexEl.classList.add("bg-warning");
+    } else if (uvIndex.current.uvi > 7 && uvIndex.current.uvi <= 10) {
+        currentUvIndexEl.classList.add("bg-danger");
+    } else if (uvIndex.current.uvi > 10) {
+        currentUvIndexEl.classList.add("bg-dark");
+    };
+
+    todayWeather.appendChild(currentUvIndexEl);
 }
 
 searchButton.addEventListener("click", searchButtonHandler);
