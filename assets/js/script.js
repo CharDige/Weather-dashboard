@@ -52,6 +52,16 @@ var displayCurrentCityWeather = function(weather, searchedCity) {
     var currentTemp = document.createElement("p");
     currentTemp.textContent = "Temperature: " + weather.main.temp + "°C"
     todayWeather.appendChild(currentTemp);
+
+    // Current humidity
+    var currentHumidity = document.createElement("p");
+    currentHumidity.textContent = "Humidity: " + weather.main.humidity + "%";
+    todayWeather.appendChild(currentHumidity);
+
+    // Current wind speed
+    var currentWindSpeed = document.createElement("p");
+    currentWindSpeed.textContent = "Wind speed: " + weather.wind.speed + " metres/second";
+    todayWeather.appendChild(currentWindSpeed);
 }
 
 searchButton.addEventListener("click", searchButtonHandler);
