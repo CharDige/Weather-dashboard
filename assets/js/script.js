@@ -18,9 +18,20 @@ function init() {
 var searchButtonHandler = function(event) {
     event.preventDefault();
     var searchedCity = citySearchInputEl.value.trim();
-    console.log(searchedCity);
-    getCurrentCityWeather(searchedCity);
-    setSearchedCities(searchedCity);
+    if (searchedCity) {
+        console.log(searchedCity);
+        getCurrentCityWeather(searchedCity);
+        setSearchedCities(searchedCity);
+    } else {
+        var errorMessageAlert = document.createElement("p");
+        errorMessageAlert.setAttribute("id", "error-message-alert")
+        errorMessageAlert.textContent = "Please enter a city";
+        errorMessageEl.appendChild(errorMessageAlert);
+        setTimeout(function () {
+            var removeErrorMessageAlert = document.getElementById("error-message-alert");
+            removeErrorMessageAlert.parentNode.removeChild(removeErrorMessageAlert);
+        }, 2000);
+    }
 }
 
 // Read from local storage
