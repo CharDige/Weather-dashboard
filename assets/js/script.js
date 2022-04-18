@@ -15,12 +15,50 @@ var searchButtonHandler = function(event) {
     var searchedCity = citySearchInputEl.value.trim();
     console.log(searchedCity);
     getCurrentCityWeather(searchedCity);
-    saveSearchedCities(searchedCity);
+    setSearchedCities();
+}
+
+// Read from local storage
+function readLocalStorage() {
+    var savedSearchedCities = JSON.parse(localStorage.getItem("searchedCities"));
+    if (!savedSearchedCities) {
+        return [];
+    }
+    return savedSearchedCities;
 }
 
 // Save search into local storage
-var saveSearchedCities = function(searchedCity) {
-    localStorage.setItem("searchedCities", searchedCity);
+var saveLocalStorage = function(searchedCity) {
+    localStorage.setItem("searchedCities", JSON.stringify(searchedCity));
+}
+
+function setSearchedCities() {
+    var searchedCity = citySearchInputEl.value.trim();
+    var existingSearchedCities = readLocalStorage();
+    // Store each city separately
+    existingSearchedCities.push(searchedCity);
+    saveLocalStorage(existingSearchedCities);
+    getSearchedCities();
+};
+
+function getSearchedCities() {
+    var previousSearchedCities = document.createElement("div");
+    searchedCitiesEl.appendChild(previousSearchedCities);
+    var searchedCities = readLocalStorage();
+
+    // If there is nothing stored in local storage, console log
+    if (searchedCities.length === 0) {
+        console.log("No previous searched cities");
+
+    // If there is something stored in local storage, create buttons
+    } else {
+        for (var i = 0; i < searchedCities.length; i++) {
+            var searchedCitiesList = document.createElement("button");
+            searchedCitiesList.classList.add("bg-success");
+            searchedCitiesList.textContent = searchedCities[i];
+            previousSearchedCities.appendChild(searchedCitiesList);
+        }
+    }
 }
 
 // Get current weather for searched city
