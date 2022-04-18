@@ -110,6 +110,7 @@ var getCurrentCityWeather = function(searchedCity) {
 var displayCityWeatherForecast = function(currentWeather, searchedCity) {
     // Clear content ahead of new content
     todayWeather.textContent = "";
+    todayWeather.classList.add("today-weather-border");
     // Adding heading for searched city
     var todayWeatherHeading = document.createElement("h2");
     todayWeatherHeading.textContent = searchedCity;
@@ -165,6 +166,7 @@ var currentUvIndex = function(lat,lon) {
 // Showing the current UV index and colour coding based on severity of UV index
 var showCurrentUvIndex = function(uvIndex) {
     var currentUvIndexEl = document.createElement("p");
+    currentUvIndexEl.classList.add("uv-index-colour")
     currentUvIndexEl.textContent = "UV Index: " + uvIndex.current.uvi
     
     // Conditional statement to change colour to indicate level of UV severity
