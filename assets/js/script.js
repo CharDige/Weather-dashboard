@@ -95,11 +95,26 @@ var getCurrentCityWeather = function(searchedCity) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&units=metric&appid=" + ApiKey
     fetch(apiUrl)
     .then (function(response) {
-        response.json()
-        .then(function(data) {
-            console.log(data,searchedCity)
-            displayCityWeatherForecast(data, searchedCity);
-        })
+        if (!response.ok) {
+            throw response.json();
+        }
+
+        return response.json();
+    })
+    .then(function(data) {
+        console.log(data,searchedCity)
+        displayCityWeatherForecast(data, searchedCity);
+    })
+    .catch(function (error) {
+        console.error(error);
+        var errorMessageAlert = document.createElement("p");
+        errorMessageAlert.setAttribute("id", "error-message-alert")
+        errorMessageAlert.textContent = "City entered incorrectly. Please try again";
+        errorMessageEl.appendChild(errorMessageAlert);
+        setTimeout(function () {
+            var removeErrorMessageAlert = document.getElementById("error-message-alert");
+            removeErrorMessageAlert.parentNode.removeChild(removeErrorMessageAlert);
+        }, 3000);
     })
 };
 
