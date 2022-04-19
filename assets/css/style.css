@@ -67,6 +67,14 @@ label {
     font-family: var(--heading-font-family);
 }
 
+/* Error message styling */
+#error-message {
+    width: 100%;
+    text-align: center;
+    font-weight: bolder;
+    color: var(--dark-color);
+}
+
 /* UV index colour styling */
 .uv-index-colour {
     width: 25%;
