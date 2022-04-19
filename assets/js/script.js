@@ -58,8 +58,6 @@ function setSearchedCities(searchedCity) {
 
 function getSearchedCities() {
     searchedCitiesEl.innerHTML = "";
-    var previousSearchedCities = document.createElement("div");
-    searchedCitiesEl.appendChild(previousSearchedCities);
     var searchedCities = readLocalStorage();
 
     // If there is nothing stored in local storage, console log
@@ -71,12 +69,11 @@ function getSearchedCities() {
         for (var i = 0; i < searchedCities.length; i++) {
             var searchedCitiesList = document.createElement("button");
             searchedCitiesList.classList.add("btn");
-            searchedCitiesList.classList.add("btn-success");
             searchedCitiesList.classList.add("past-search-button");
             searchedCitiesList.dataset.key = searchedCities[i];
             searchedCitiesList.setAttribute("data-key", searchedCities[i]);
             searchedCitiesList.textContent = searchedCities[i];
-            previousSearchedCities.append(searchedCitiesList);
+            searchedCitiesEl.append(searchedCitiesList);
         }
     }
     var pastSearchButtons = document.querySelectorAll(".past-search-button");
@@ -210,7 +207,8 @@ var displayFiveDayForecast = function(fiveDayWeather) {
     // Day 1 card of five day weather forecast
     var dayOneForecast = document.createElement("div")
     dayOneForecast.classList.add("card");
-    dayOneForecast.classList.add("bg-success");
+    dayOneForecast.classList.add("five-day-forecast-card");
+    dayOneForecast.classList.add("bg-gradient");
     dayOneForecast.classList.add("m-2");
     dayOneForecast.classList.add("col-12");
     dayOneForecast.classList.add("col-md-2");
@@ -244,7 +242,8 @@ var displayFiveDayForecast = function(fiveDayWeather) {
     // Day 2 card of five day weather forecast
     var dayTwoForecast = document.createElement("div");
     dayTwoForecast.classList.add("card");
-    dayTwoForecast.classList.add("bg-success");
+    dayTwoForecast.classList.add("five-day-forecast-card");
+    dayTwoForecast.classList.add("bg-gradient");
     dayTwoForecast.classList.add("m-2");
     dayTwoForecast.classList.add("col-12");
     dayTwoForecast.classList.add("col-md-2");
@@ -278,7 +277,8 @@ var displayFiveDayForecast = function(fiveDayWeather) {
     // Day 3 card of five day weather forecast
     var dayThreeForecast = document.createElement("div");
     dayThreeForecast.classList.add("card");
-    dayThreeForecast.classList.add("bg-success");
+    dayThreeForecast.classList.add("five-day-forecast-card");
+    dayThreeForecast.classList.add("bg-gradient");
     dayThreeForecast.classList.add("m-2");
     dayThreeForecast.classList.add("col-12");
     dayThreeForecast.classList.add("col-md-2");
@@ -312,7 +312,8 @@ var displayFiveDayForecast = function(fiveDayWeather) {
     // Day 4 card of five day weather forecast
     var dayFourForecast = document.createElement("div");
     dayFourForecast.classList.add("card");
-    dayFourForecast.classList.add("bg-success");
+    dayFourForecast.classList.add("five-day-forecast-card");
+    dayFourForecast.classList.add("bg-gradient");
     dayFourForecast.classList.add("m-2");
     dayFourForecast.classList.add("col-12");
     dayFourForecast.classList.add("col-md-2");
@@ -346,7 +347,8 @@ var displayFiveDayForecast = function(fiveDayWeather) {
     // Day 4 card of five day weather forecast
     var dayFiveForecast = document.createElement("div");
     dayFiveForecast.classList.add("card");
-    dayFiveForecast.classList.add("bg-success");
+    dayFiveForecast.classList.add("five-day-forecast-card");
+    dayFiveForecast.classList.add("bg-gradient");
     dayFiveForecast.classList.add("m-2");
     dayFiveForecast.classList.add("col-12");
     dayFiveForecast.classList.add("col-md-2");
