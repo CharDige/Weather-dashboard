@@ -4,7 +4,11 @@
 
 This project required the creation of a weather dashboard from scratch--no starter code. Therefore, a HTML, CSS and script file all needed to be created to meet the user story and acceptance criteria.
 
-The user story was:
+> The final project can be found at: https://chardige.github.io/Weather-dashboard/
+
+> The final HTML, CSS and Script can be found at: https://github.com/CharDige/Weather-dashboard
+
+## The user story
 
 ```
 AS A traveller
@@ -12,7 +16,8 @@ I WANT to see the weather outlook for multiple cities
 SO THAT I can plan a trip accordingly
 ```
 
-The acceptance critera was:
+## Acceptance criteria
+
 
 ```
 GIVEN a weather dashboard with form inputs
@@ -33,15 +38,15 @@ Other requirements included:
 - using the [OpenWeather API](https://openweathermap.org/api) to retrieve weather data (I used both the One Call API and the Current Weather API)
 - using `localStorage` to store persistent data.
 
-This project also uses:
+## Technologies used
 
 - [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 - [Google Fonts](https://fonts.google.com/)
 - [Moment.js](https://momentjs.com/)
-
-> The final project can be found at: https://chardige.github.io/Weather-dashboard/
-
-> The final HTML, CSS and Script can be found at: https://github.com/CharDige/Weather-dashboard
+- HTML
+- JavaScript
+- CSS
+- API (specifically [OpenWeather API](https://openweathermap.org/api))
 
 ## The process
 
@@ -69,9 +74,9 @@ Here's a summary of my process, which can be seen in more detail in the commits 
 
 ![Run through of weather dashboard](./images/weather-dashboard-functionality.gif)
 
-This can also be viewed at this link: https://chardige.github.io/Weather-dashboard/
+> The final project can be found at: https://chardige.github.io/Weather-dashboard/
 
-And, the HTML, CSS and Script can be viewed in the GitHub repository: https://github.com/CharDige/Weather-dashboard
+> The final HTML, CSS and Script can be found at: https://github.com/CharDige/Weather-dashboard
 
 ## Challenges and what I learnt
 
