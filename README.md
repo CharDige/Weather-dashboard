@@ -109,6 +109,4 @@ Cancer Council (2022), *UV Index*, Cancer Council, https://www.cancer.org.au/can
 
 ## License
 
-MIT License
-
-Copyright (C) 2022 Charlotte Dige
+[MIT License Copyright (C) 2022 Charlotte Dige](./LICENSE)
